@@ -1,0 +1,6 @@
+transformers
+datasets
+accelerate
+seqeval
+pandas
+numpy
