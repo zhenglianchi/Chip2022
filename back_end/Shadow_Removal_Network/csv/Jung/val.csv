@@ -1,0 +1,11 @@
+,img,gt,B,G,R
+0,./dataset/Jung/val/img/rect_21.jpg,./dataset/Jung/val/gt/rect_21.jpg,212.00979265104246,215.877788012941,217.42363644038127
+1,./dataset/Jung/val/img/rect_22.jpg,./dataset/Jung/val/gt/rect_22.jpg,209.6532621556144,213.8763568839559,215.7900092962984
+2,./dataset/Jung/val/img/rect_23.jpg,./dataset/Jung/val/gt/rect_23.jpg,216.46617477878019,221.07597736047077,223.88615649877318
+3,./dataset/Jung/val/img/rect_24.jpg,./dataset/Jung/val/gt/rect_24.jpg,216.72550252843612,220.02290052758818,221.951323743714
+4,./dataset/Jung/val/img/rect_25.jpg,./dataset/Jung/val/gt/rect_25.jpg,209.46977599118838,213.05066204747538,214.76841282766995
+5,./dataset/Jung/val/img/rect_26.jpg,./dataset/Jung/val/gt/rect_26.jpg,214.72763489808344,219.05186001333757,222.04441995998724
+6,./dataset/Jung/val/img/rect_27.jpg,./dataset/Jung/val/gt/rect_27.jpg,218.90095595405245,223.103519272068,225.8004992808183
+7,./dataset/Jung/val/img/rect_28.jpg,./dataset/Jung/val/gt/rect_28.jpg,217.92485268490609,222.4882855962107,224.36215093041872
+8,./dataset/Jung/val/img/rect_29.jpg,./dataset/Jung/val/gt/rect_29.jpg,217.88827230994588,221.0886892916689,223.38459761896476
+9,./dataset/Jung/val/img/rect_30.jpg,./dataset/Jung/val/gt/rect_30.jpg,218.15055416134794,221.4245116172712,223.49612564656982

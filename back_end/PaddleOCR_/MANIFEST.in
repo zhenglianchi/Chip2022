@@ -1,0 +1,10 @@
+include LICENSE
+include README.md
+
+recursive-include ppocr_/utils *.*
+recursive-include ppocr_/data *.py
+recursive-include ppocr_/postprocess *.py
+recursive-include tools_/infer *.py
+recursive-include tools_ __init__.py
+recursive-include ppocr_/utils/e2e_utils *.py
+recursive-include ppstructure *.py

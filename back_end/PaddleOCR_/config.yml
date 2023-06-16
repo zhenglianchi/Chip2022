@@ -1,0 +1,153 @@
+Global:
+  use_gpu: false
+  epoch_num: 200
+  log_smooth_window: 10
+  print_batch_step: 10
+  save_model_dir: ./output/ser_vi_layoutxlm_xfund_zh
+  save_epoch_step: 2000
+  eval_batch_step:
+  - 0
+  - 19
+  cal_metric_during_train: false
+  save_inference_dir: null
+  use_visualdl: false
+  seed: 2022
+  infer_img: null
+  save_res_path: result
+  kie_rec_model_dir: null
+  kie_det_model_dir: null
+Architecture:
+  model_type: kie
+  algorithm: LayoutXLM
+  Transform: null
+  Backbone:
+    name: LayoutXLMForSer
+    pretrained: true
+    checkpoints: PaddleOCR_/best_accuracy
+    mode: vi
+    num_classes: 165
+Loss:
+  name: VQASerTokenLayoutLMLoss
+  num_classes: 165
+  key: backbone_out
+Optimizer:
+  name: AdamW
+  beta1: 0.9
+  beta2: 0.999
+  lr:
+    name: Linear
+    learning_rate: 5.0e-05
+    epochs: 200
+    warmup_epoch: 2
+  regularizer:
+    name: L2
+    factor: 0.0
+PostProcess:
+  name: VQASerTokenLayoutLMPostProcess
+  class_path: PaddleOCR_/label_list.txt
+Metric:
+  name: VQASerTokenMetric
+  main_indicator: hmean
+Train:
+  dataset:
+    name: SimpleDataSet
+    data_dir: train_data/fp/train/img
+    label_file_list:
+    - train_data/fp/train/train.txt
+    ratio_list:
+    - 1.0
+    transforms:
+    - DecodeImage:
+        img_mode: RGB
+        channel_first: false
+    - VQATokenLabelEncode:
+        contains_re: false
+        algorithm: LayoutXLM
+        class_path: PaddleOCR_/label_list.txt
+        use_textline_bbox_info: true
+        order_method: tb-yx
+    - VQATokenPad:
+        max_seq_len: 512
+        return_attention_mask: true
+    - VQASerTokenChunk:
+        max_seq_len: 512
+    - Resize:
+        size:
+        - 224
+        - 224
+    - NormalizeImage:
+        scale: 1
+        mean:
+        - 123.675
+        - 116.28
+        - 103.53
+        std:
+        - 58.395
+        - 57.12
+        - 57.375
+        order: hwc
+    - ToCHWImage: null
+    - KeepKeys:
+        keep_keys:
+        - input_ids
+        - bbox
+        - attention_maskPaddleOCR_
+        - token_type_ids
+        - image
+        - labels
+  loader:
+    shuffle: true
+    drop_last: false
+    batch_size_per_card: 8
+    num_workers: 4
+Eval:
+  dataset:
+    name: SimpleDataSet
+    data_dir: train_data/fp/val/img
+    label_file_list:
+    - train_data/fp/val/val.txt
+    transforms:
+    - DecodeImage:
+        img_mode: RGB
+        channel_first: false
+    - VQATokenLabelEncode:
+        contains_re: false
+        algorithm: LayoutXLM
+        class_path: PaddleOCR_/label_list.txt
+        use_textline_bbox_info: true
+        order_method: tb-yx
+    - VQATokenPad:
+        max_seq_len: 512
+        return_attention_mask: true
+    - VQASerTokenChunk:
+        max_seq_len: 512
+    - Resize:
+        size:
+        - 224
+        - 224
+    - NormalizeImage:
+        scale: 1
+        mean:
+        - 123.675
+        - 116.28
+        - 103.53
+        std:
+        - 58.395
+        - 57.12
+        - 57.375
+        order: hwc
+    - ToCHWImage: null
+    - KeepKeys:
+        keep_keys:
+        - input_ids
+        - bbox
+        - attention_mask
+        - token_type_ids
+        - image
+        - labels
+  loader:
+    shuffle: true
+    drop_last: false
+    batch_size_per_card: 8
+    num_workers: 4
+profiler_options: null
